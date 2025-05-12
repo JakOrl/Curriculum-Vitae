@@ -1,0 +1,23 @@
+Simplified Project Idea: Expense Logger
+Description: A command-line application where users can log their expenses and view a summary of their spending.
+
+Features:
+
+- Add Expenses:
+
+- Input fields:
+    Date, Category, Amount, and Description.
+    Store the data in a simple text file or CSV file.
+
+- View Expenses:
+    Display all logged expenses in a formatted table in the terminal.
+
+
+Summary:
+    Calculate and show the total spending.
+    Optional: Show totals by category.
+
+Tools and Concepts:
+    Python Basics: Reading and writing files, user input, and basic data manipulation.
+    CSV Module: Store and retrieve data in a structured format.
+    Option for Expansion: Later, can learn to connect this with a GUI or web interface.
