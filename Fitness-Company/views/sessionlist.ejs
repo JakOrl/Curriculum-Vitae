@@ -1,0 +1,37 @@
+<%- include('partials/head') -%>
+    <!--
+    I am not including card information in the DB reading on site as that is security risk and bad practice in general.
+    -->
+    <div class="wrapper">
+        <h1><%= title %></h1>
+        <div class="ra-r"></div>
+        
+        <table class="table table-inverse">
+            <thead>
+                <tr>
+                    <th>Client ID</th>
+                    <th>Client Name</th>
+                    <th>Date & Time of Session</th>
+                  <!--  <th>Update</th> -->
+                    <!-- <th>Delete</th> -->
+                </tr>
+            </thead>
+
+            <tbody>
+                <% for(var i = 0; i < sessionlist.length; i++) { %>
+                <tr>
+                    <td><%= sessionlist[i].ID %></td>
+                    <td><%= sessionlist[i].name %></td>
+                    <td><%= sessionlist[i].DateTime %></td>
+                    
+                   <!-- <td><a href="/sessions/<%= sessionlist[i]._id %>/update">Update</a></td> -->
+                    <!-- <td><a href="/sessions/<%= sessionlist[i]._id %>/delete">Delete</a></td> -->
+                </tr>
+                <% } %>
+            </tbody>
+
+        </table>
+
+    </div>
+    
+<%- include('partials/foot') -%>

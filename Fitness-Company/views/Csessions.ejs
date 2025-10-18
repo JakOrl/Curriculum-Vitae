@@ -1,0 +1,41 @@
+<%- include('partials/head') %>
+
+    <div class="wrapper">
+        <h1><%= title %></h1>
+        <div class="ra-r"></div>
+        <body>
+
+            <div style="margin:0 auto ; width:50%; padding:20px">
+
+              <form action="/create" method="post">
+              <label>Name</label>
+              <input type="text" name="name" required>
+                <br /> <br /> <br /> <br />
+
+              <label>ID Number</label>
+              <input type="integer" name="ID" required>
+                <br /> <br /> <br /> <br />
+
+                <label>Session Date and Time </label>
+              <input type="datetime-local" name="DateTime" required>
+                <br /> <br /> <br /> <br />
+
+                <h3>Please enter Card Details below</h3>
+                <label>Card Number</label>
+                <input type="text" name="cardDetails[cardNum]" required> 
+                <br /> <br /> <br /> <br />
+
+                <label>Expiry (MM/YY)</label>
+                <input type="text" name="cardDetails[expiry]" required>
+                <br /> <br /> <br /> <br />
+
+                <label>Security Code</label>
+                <input type="text" name="cardDetails[securityCode]" required>
+                <br /> <br /> <br /> <br />
+
+              <button>submit</button>
+                </form>
+              </div>
+            </body>
+    </div>
+<%- include('partials/foot') %>

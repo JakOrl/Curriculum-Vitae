@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!--
+    Found and pasted error page for ease of debugging. None of this code or page in this file is my own!! 
+    -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title><%= typeof title !== 'undefined' ? title : 'Error - Fitness Company' %></title>
+    
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f4f4f4; color: #333; }
+        .error-box { padding: 20px; border: 1px solid #ccc; background-color: #fff; max-width: 600px; margin: 0 auto; }
+        .error-message { color: #cc0000; font-weight: bold; }
+        .stack-trace { background-color: #eee; padding: 10px; border: 1px solid #ddd; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <div class="error-box">
+        <h1>An Error Occurred</h1>
+        
+        <h2 class="error-message">Status: <%= error.status || 500 %></h2>
+
+        <p><strong>Message:</strong> <%= message %></p>
+        
+        <% if (error.stack) { %>
+            <h3>Stack Trace (Development Only)</h3>
+            <pre class="stack-trace">
+                <code><%= error.stack %></code>
+            </pre>
+        <% } %>
+
+        <hr>
+        <p>
+            <a href="/">Click here to return to the Homepage.</a>
+        </p>
+    </div>
+</body>
+</html>
