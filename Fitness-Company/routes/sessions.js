@@ -6,7 +6,6 @@ const sessions = require('../models/session');
 
 const sessionsRouter = express.Router();
 
-
 // Render the Create Sessions site
 sessionsRouter.route('/')
 .get((req,res,next) => {

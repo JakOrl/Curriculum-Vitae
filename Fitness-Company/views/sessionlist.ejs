@@ -12,8 +12,6 @@
                     <th>Client ID</th>
                     <th>Client Name</th>
                     <th>Date & Time of Session</th>
-                  <!--  <th>Update</th> -->
-                    <!-- <th>Delete</th> -->
                 </tr>
             </thead>
 
@@ -24,8 +22,13 @@
                     <td><%= sessionlist[i].name %></td>
                     <td><%= sessionlist[i].DateTime %></td>
                     
-                   <!-- <td><a href="/sessions/<%= sessionlist[i]._id %>/update">Update</a></td> -->
-                    <!-- <td><a href="/sessions/<%= sessionlist[i]._id %>/delete">Delete</a></td> -->
+                    <td>
+                        <!-- Using a anchor not form because using a get method not 2 post methods. Following RESTful technique-->
+                         <div class="secret">
+                            <form action="/view/delete" method="post"> <input type="hidden" value="<%= sessionlist[i]._id%>" name="_id"><button type="Submit"><span></span>Delete</button></form>
+                            <a href="/view/update/<%=sessionlist[i]._id%>"><button type="button"><span></span>Update</button></a>
+                        </div>
+                    </td>    
                 </tr>
                 <% } %>
             </tbody>

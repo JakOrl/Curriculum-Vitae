@@ -5,17 +5,17 @@ const Schema = mongoose.Schema;
 const cardSchema = new Schema({
   cardNum: {
     type: String,
-    required: true,     // The below throws exception if mongoose rejects//
+    required: false,     // The below throws exception if mongoose rejects//
     match: [/^\d{16}$/, "Card number must be 16 digits"]
   },
   expiry: {
     type: String,
-    required: true,
+    required: false,
     match: [/^(0[1-9]|1[0-2])\/\d{2}$/, "Expiry must be in MM/YY format"]
   },
   securityCode: {
     type: String,
-    required: true,
+    required: false,
     match: [/^\d{3,4}$/, "Security code must be 3 or 4 digits"]
   }
 });
@@ -37,7 +37,7 @@ const personTrainingSchema = new Schema({
   },
   cardDetails: {
     type: cardSchema,
-    required: true
+    required: false,
   }
 }, {
   timestamps: true

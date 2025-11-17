@@ -1,0 +1,37 @@
+<%- include('partials/head') -%>
+
+<div class="wrapper">
+    <h1><%= title %></h1>
+    <div class="ra-r"></div>
+    
+    <h2>Training Session Summary Report</h2>
+
+    <p><strong>Client Name:</strong> <%= reportName %></p>
+    <p><strong>Date Range:</strong> <%= startDate %> to <%= endDate %></p>
+
+    <% if (sessions && sessions.length > 0) { %>
+        <p><strong>Total Sessions Found:</strong> <%= sessions.length %></p>
+        
+        <table class="table table-inverse">
+            <thead>
+                <tr>
+                    <th>Date & Time</th>
+                    <th>Client ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% sessions.forEach(function(session) { %>
+                    <tr>
+                        <td><%= session.DateTime.toLocaleString() %></td>
+                        <td><%= session.ID %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No training sessions found for <strong><%= reportName %></strong> in the specified date range.</p>
+    <% } %>
+
+</div>
+
+<%- include('partials/foot') -%>

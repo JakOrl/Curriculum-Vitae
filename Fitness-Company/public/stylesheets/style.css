@@ -299,3 +299,9 @@ a.sh-c:hover {
 .table-inverse tr {
     border-bottom: 1px solid #ddd; 
 }
+
+.secret input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
