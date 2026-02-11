@@ -1,0 +1,17 @@
+# Compiled Executables
+*.exe
+*.o
+*.obj
+
+# IDE folders
+.idea/
+.vs/
+.vscode/
+bin/
+obj/
+out/
+cmake-build-debug/
+cmake-build-release/
+
+# Other
+*.log
