@@ -276,7 +276,7 @@ public class Controller {
             timer.start();
         }else{
             isPaused = true;
-            this.Pause_Message = "Paused - P to resume";
+            this.Pause_Message = "Paused - ESC/P: resume | Q: save | L: Load";
             if(canvas != null){
                 canvas.Draw(P1,P2,ball);
             }
@@ -304,5 +304,42 @@ public class Controller {
     /** @return The flag for if the game is currently paused or not. */
     public boolean isPaused(){
         return isPaused;
+    }
+
+    /**
+     * Takes the data from the loaded GameState and applies it to the
+     * live game objects currently on the screen.
+     * @param state The serialized GameState object retrieved from a file.
+     */
+    public void applyLoadedState(GameState state) {
+        // Restore Ball position and velocity
+        getBall().setBallX(state.ballX);
+        ball.setBallY(state.ballY);
+        ball.setVelValues(state.ballXSpeed, state.ballYSpeed);
+
+        // Restore Racket positions
+        getP1().getRacket().setRacketY(state.leftRacketY);
+        getP2().getRacket().setRacketY(state.rightRacketY);
+
+        // Restore Scores and Player Data
+        getP1().setScore(state.scoreP1);
+        getP2().setScore(state.scoreP2);
+        getP1().setName(state.p1Name);
+        getP2().setName(state.p2Name);
+
+        // Update Game Settings
+        getGame().setGame_target(state.scoreLimit);
+
+
+        // Ensure game remains paused and stop the game timer
+        this.isPaused = true;
+        this.gameStart = false;
+
+        //  Ensure message carries over after load
+        this.Pause_Message = "Game Loaded - ESC/P: Resume | Q: Save | L: Load";
+        //  Force the view to redraw with the new positions
+        requestManualRedraw();
+
+        System.out.println("Success: Game state restored from file.");
     }
 }

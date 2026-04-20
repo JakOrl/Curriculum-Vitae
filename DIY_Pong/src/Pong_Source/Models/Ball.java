@@ -111,6 +111,15 @@ public class Ball {
         return height;
     }
 
+    /** @return The X speed of ball. */
+    public double getBallXSpeed() {
+        return xVel;
+    }
+
+    /** @return The Y speed of ball. */
+    public double getBallYSpeed() {
+        return yVel;
+    }
     /**
      * Manually sets the velocity components of the ball.
      * Useful for resetting the serve or custom physics events.

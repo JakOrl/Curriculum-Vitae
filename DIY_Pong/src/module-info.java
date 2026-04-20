@@ -7,18 +7,14 @@
 module com.example.Pong_Source {
     requires javafx.controls;
     requires javafx.fxml;
-    requires javafx.web;
-    requires com.almasb.fxgl.all;
-    requires java.desktop;
-
 
     requires org.junit.jupiter.api;
-    requires org.junit.platform.commons;
 
-
-    opens Pong_Source.Models to org.junit.platform.commons;
+    opens Pong_Source.Controller to javafx.graphics, javafx.fxml;
 
     exports Pong_Source.Controller;
-    exports Pong_Source.Models;
     exports Pong_Source.View;
+    exports Pong_Source.Models;
+    // Add this for the new package we are creating
+    // exports Pong_Source.Services;
 }

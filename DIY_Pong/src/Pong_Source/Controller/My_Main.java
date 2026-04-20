@@ -1,5 +1,7 @@
 package Pong_Source.Controller;
 
+import Pong_Source.Models.GameState;
+import Pong_Source.Services.SaveService;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -81,6 +83,25 @@ public class My_Main extends Application {
         myScene.setOnKeyPressed(e ->{
             System.out.println("Key pressed ->" + e.getCode());
             switch(e.getCode()){
+                case ESCAPE, P -> {
+                    controller.togglePause();
+                }
+
+                case Q ->{
+                    if(controller.isPaused()){
+                        GameState snapshot = new GameState(controller.getBall(), controller.getP1().getRacket(), controller.getP2().getRacket(), controller.getP1(), controller.getP2(), controller.getGame().getGame_target());
+                        SaveService.getInstance().saveGame(snapshot);
+                    }}
+
+                case L ->{
+                    if (controller.isPaused()){
+                        GameState loadedState = SaveService.getInstance().loadGame();
+                        if (loadedState != null){
+                            controller.applyLoadedState(loadedState);
+                        }
+                    }}
+
+
                 case W -> controller.p1UP = true;
                 case S -> controller.p1DOWN = true;
                 case UP -> controller.p2UP = true;
@@ -107,9 +128,6 @@ public class My_Main extends Application {
                         controller.getBall().setVelValues(startX,3.5);
 
                         controller.requestManualRedraw();
-                }
-                case P ->{
-                    controller.togglePause();
                 }
             }
         });
