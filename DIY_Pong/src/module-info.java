@@ -9,6 +9,8 @@ module com.example.Pong_Source {
     requires javafx.fxml;
 
     requires org.junit.jupiter.api;
+    requires java.sql;
+    requires mysql.connector.j;
 
     opens Pong_Source.Controller to javafx.graphics, javafx.fxml;
 

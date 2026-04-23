@@ -1,5 +1,6 @@
 package Pong_Source.Controller;
 
+import Pong_Source.DAO.MatchDAO;
 import Pong_Source.Models.*;
 import Pong_Source.View.Pong_Canvas;
 import javafx.animation.AnimationTimer;
@@ -11,7 +12,7 @@ import javafx.animation.AnimationTimer;
  * translations to model movements, detects collisions, and manages game states
  * such as scoring, pausing, and game over conditions.
  * </p>
- * * @author Jakub Orlowski
+ * @author Jakub Orlowski
  * @version 1.0
  */
 
@@ -43,12 +44,12 @@ public class Controller {
     // Constructor
     //------------------------------
     /**
-     * Initializes a new Game session.
+     * Initializes a new Game session, now using the Builder pattern to decouple complex construction.
      * Sets up the Game settings, creates two Players with Rackets at their
      * starting positions, and initializes the Ball.
      */
     public Controller(){
-        this.game = new Game();
+        this.game = new GameBuilder().setSpeedIncrease(5).setTargetScore(1).build();
 
         Racket r1 = new Racket(20, 250, 20, 100);
         Racket r2 = new Racket(560, 250, 20, 100);
@@ -197,6 +198,7 @@ public class Controller {
 
     /**
      * Updates the score for the winning player and checks if the game has ended.
+     * Update: Also creates a MatchResult object to save the data of the game.
      * @param scoring_player The player who just scored a point.
      * @param canvas The canvas used for resetting the ball position.
      */
@@ -207,10 +209,23 @@ public class Controller {
         if (scoring_player.getScore() >= game.getGame_target()) {
             Status_Message = scoring_player.getName() + " WINS THE GAME !";
             is_game_over = true;
+
+            //----------------
+            // DB LOGIC
+            //---------------
+            MatchResult result = new MatchResult(
+
+                    P1.getName(),
+                    P2.getName(),
+                    P1.getScore(),
+                    P2.getScore(),
+                    game.getGame_target()
+            );
+            new MatchDAO().saveMatch(result);
+
         } else{
             Status_Message = scoring_player.getName() + " SCORES !";
         }
-
         resetBall(canvas);
     }
 
@@ -273,10 +288,12 @@ public class Controller {
         if (isPaused){
             isPaused = false;
             this.Pause_Message = "";
+            this.Status_Message = "";
             timer.start();
         }else{
             isPaused = true;
-            this.Pause_Message = "Paused - ESC/P: resume | Q: save | L: Load";
+            this.Pause_Message = "GAME PAUSED";
+            this.Status_Message = "ESC/P: resume | Q: save | L: Load | M: Load last game";
             if(canvas != null){
                 canvas.Draw(P1,P2,ball);
             }
@@ -336,10 +353,34 @@ public class Controller {
         this.gameStart = false;
 
         //  Ensure message carries over after load
-        this.Pause_Message = "Game Loaded - ESC/P: Resume | Q: Save | L: Load";
+        this.Status_Message = "ESC/P: resume";
+        this.Pause_Message = "Game Loaded";
         //  Force the view to redraw with the new positions
         requestManualRedraw();
 
-        System.out.println("Success: Game state restored from file.");
+        System.out.println("Success: Game state.");
+    }
+
+    public void loadFromDataBase(){
+        MatchDAO dao = new MatchDAO();
+
+        Game reconstructedGame = dao.loadLatestGame(getP1(), getP2());
+
+        if (reconstructedGame != null) {
+            this.game = reconstructedGame;
+
+            if (canvas != null) {
+                ball.setBallX((canvas.getWidth()/2) - (ball.getBallWidth()/2));
+                ball.setBallY((canvas.getHeight()/2) - (ball.getBallHeight()/2));
+            }
+
+            this.gameStart = false;
+            this.isPaused = true;
+            this.Status_Message = "DB Loaded! Check score limit! SPACE to serve";
+            requestManualRedraw();
+        }
+
+
+
     }
 }

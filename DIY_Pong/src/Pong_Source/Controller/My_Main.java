@@ -1,5 +1,6 @@
 package Pong_Source.Controller;
 
+import Pong_Source.DAO.MatchDAO;
 import Pong_Source.Models.GameState;
 import Pong_Source.Services.SaveService;
 import javafx.application.Application;
@@ -100,6 +101,13 @@ public class My_Main extends Application {
                             controller.applyLoadedState(loadedState);
                         }
                     }}
+
+                case M ->{
+                    if (controller.isPaused()){
+                        // load from
+                        controller.loadFromDataBase();
+                    }
+                }
 
 
                 case W -> controller.p1UP = true;
