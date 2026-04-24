@@ -1,0 +1,13 @@
+-------------------Stress Testing Results -------------------
+
+
+Default Heap : runHeap() ->     --- HEAP FAILURE ---
+				Total Objects: 4021
+				Time Elapsed: 1.955 seconds
+
+-Xmx128m Heap : runHeap() ->    --- HEAP FAILURE ---
+				Total Objects: 115
+				Time Elapsed: 0.102 seconds
+
+Stack Test :   runStack(0) ->   --- STACK FAILURE REACHED ---
+				Max Depth:16846
